@@ -11,7 +11,8 @@ module "vpc" {
     "kubernetes.io/role/internal-elb", ""
   )
 
-  public_subnet_tags = {
-    "kubernetes.io/role/elb" = ""
-  }
+  public_subnet_tags = map(
+    format("kubernetes.io/cluster/%s", var.cluster_name), "shared",
+    "kubernetes.io/role/elb",""
+  )
 }
